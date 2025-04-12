@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import { React, useState } from 'react'
 import Navbar from '../components_lite/Navbar'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
@@ -7,12 +7,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { USER_API_ENDPOINT } from '@/utils/data'
 import { toast } from 'sonner'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const Register = () => {
 
 
-  const [ input, setInput]  = useState({
+  const [input, setInput] = useState({
     fullname: "",
     email: "",
     password: "",
@@ -22,6 +23,8 @@ const Register = () => {
   })
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth)
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -40,17 +43,18 @@ const Register = () => {
     formData.append("role", input.role);
     formData.append("phoneNumber", input.phoneNumber);
 
-    if(input.file){
+    if (input.file) {
       formData.append("file", input.file);
     }
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
-        header:{
+        header: {
           "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
       });
-      if(res.data.success) {
+      if (res.data.success) {
         navigate('/login');
         toast.success(res.data.message)
       }
@@ -59,6 +63,9 @@ const Register = () => {
       const errorMessage = error.response ? error.response.data.message : "An unexpected error occured."
       toast.error(errorMessage)
     }
+    finally {
+          dispatch(setLoading(false));
+        }
   }
 
 
@@ -90,11 +97,11 @@ const Register = () => {
           <div className='flex items-center justify-between'>
             <RadioGroup className='flex items-center gap-4 my-5'>
               <div className="flex items-center space-x-2">
-                <Input type='radio' name='role' value='Student' checked = {input.role === 'Student'} onChange = {changeEventHandler} className='cursor-pointer'></Input>
+                <Input type='radio' name='role' value='Student' checked={input.role === 'Student'} onChange={changeEventHandler} className='cursor-pointer'></Input>
                 <Label htmlFor="option-one">Student</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <Input type='radio' name='role' value='Recruiter' checked = {input.role === 'Recruiter'} onChange = {changeEventHandler} className='cursor-pointer' ></Input>
+                <Input type='radio' name='role' value='Recruiter' checked={input.role === 'Recruiter'} onChange={changeEventHandler} className='cursor-pointer' ></Input>
                 <Label htmlFor="r2">Recruiter</Label>
               </div>
             </RadioGroup>
@@ -104,6 +111,21 @@ const Register = () => {
             <Input type='file' onChange={changeFileHandler} accept='image/*' className='cursor-pointer'></Input>
           </div>
 
+          {
+            loading ?
+              (
+                <div className="flex item-center justify-center my-10">
+                  <div className="spinner-border text-blue-600" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </div>
+              ) : (
+                <button type='submit' className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
+                  Register
+                </button>
+              )
+
+          }
           <button type='submit' className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
             Register
           </button>

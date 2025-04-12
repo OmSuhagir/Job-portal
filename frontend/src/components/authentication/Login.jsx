@@ -7,11 +7,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { USER_API_ENDPOINT } from '@/utils/data.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLoading } from '@/redux/authslice'
+import store from '@/redux/store'
+import { Button } from '../ui/button'
+import { Loader2 } from 'lucide-react'
 
 const Login = () => {
 
 
-  const navigate = useNavigate();
+
   const [input, setInput] = useState({
 
     email: "",
@@ -20,6 +25,10 @@ const Login = () => {
 
 
   })
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth)
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -31,15 +40,17 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
+
     try {
+
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
-        header:{
+        header: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
       });
-      if(res.data.success) {
+      if (res.data.success) {
         navigate('/');
         toast.success(res.data.message)
       }
@@ -47,6 +58,9 @@ const Login = () => {
       console.log(error);
       const errorMessage = error.response ? error.response.data.message : "An unexpected error occured."
       toast.error(errorMessage)
+    }
+    finally {
+      dispatch(setLoading(false));
     }
   }
 
@@ -82,9 +96,22 @@ const Login = () => {
             </RadioGroup>
           </div>
 
-          <button type='submit'  className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
-            Login
-          </button>
+          {
+            loading ?
+              (
+                <div className="flex item-center justify-center my-10">
+                  <div className="spinner-border text-blue-600" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </div>
+              ) : (
+                <button type='submit' className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
+                  Login
+                </button>
+              )
+
+          }
+
 
           <p className="text-gray-500 text-md my-2">
             Don't any have account ? <Link to='/register' className='text-blue-700'>Register</Link>
