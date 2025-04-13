@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from './Navbar'
 import Header from './Header'
 import Catagories from './Catagories'
+import LatestJob from './LatestJob'
 
 const Home = () => {
   return (
@@ -9,8 +10,8 @@ const Home = () => {
       <Navbar></Navbar>
       <Header/>
       <Catagories/>
-      {/* <LatestJobs/>
-      <Footer/> */}
+      <LatestJob/>
+      {/* <Footer/> */}
     </div>
   )
 }
