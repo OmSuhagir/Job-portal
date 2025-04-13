@@ -8,7 +8,7 @@ import axios from 'axios'
 import { USER_API_ENDPOINT } from '@/utils/data'
 import { toast } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { setLoading } from '@/redux/authslice'
 
 const Register = () => {
 
@@ -111,23 +111,16 @@ const Register = () => {
             <Input type='file' onChange={changeFileHandler} accept='image/*' className='cursor-pointer'></Input>
           </div>
 
-          {
-            loading ?
-              (
-                <div className="flex item-center justify-center my-10">
-                  <div className="spinner-border text-blue-600" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </div>
-              ) : (
-                <button type='submit' className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
-                  Register
-                </button>
-              )
-
-          }
-          <button type='submit' className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
-            Register
+          <button
+            type="submit"
+            className="block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3 flex items-center justify-center"
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              "Register"
+            )}
           </button>
 
           <p className="text-gray-500 text-md my-2">

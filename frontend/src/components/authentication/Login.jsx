@@ -96,21 +96,17 @@ const Login = () => {
             </RadioGroup>
           </div>
 
-          {
-            loading ?
-              (
-                <div className="flex item-center justify-center my-10">
-                  <div className="spinner-border text-blue-600" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </div>
-              ) : (
-                <button type='submit' className='block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3'>
-                  Login
-                </button>
-              )
-
-          }
+          <button
+            type="submit"
+            className="block w-full py-2 text-white bg-primary hover:bg-primary/90 rounded-md my-3 flex items-center justify-center"
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              "Login"
+            )}
+          </button>
 
 
           <p className="text-gray-500 text-md my-2">
