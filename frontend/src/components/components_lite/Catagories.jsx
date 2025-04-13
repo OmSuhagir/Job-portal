@@ -1,15 +1,54 @@
 import React from 'react'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel'
+import { Button } from '../ui/button'
 
-const Category = {
+
+const Category = [
   "Frontend Devloper",
   "Backend Devloper",
-}
+  "Full Stack Developer",
+  "Data Scientist",
+  "DevOps Engineer",
+  "Machine Learning Engineer",
+  "Artificial Intelligence Engineer",
+  "Cyber Security Engineer",
+  "Product Manager",
+  "UI/UX Designer",
+  "Graphic Designer",
+  "Graphic Engineer",
+  "Video Editor"
+]
 
 
 const Catagories = () => {
   return (
     <div>
-      Catagories
+      <div>
+        <h1 className='text-2xl font-bold text-center text-blue-600'>
+          Categories
+        </h1>
+        <p className='text-center text-gray-600'>
+          Explore our extensive job market.
+        </p>
+      </div>
+      <Carousel className="w-full max-w-xl mx-auto my-10" >
+        <CarouselContent>
+
+          {
+            Category.map((category, index) => {
+              return <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                <Button>
+                  {category}
+                </Button>
+              </CarouselItem>
+
+            })
+          }
+
+        </CarouselContent>
+        <CarouselPrevious></CarouselPrevious>
+        <CarouselNext></CarouselNext>
+      </Carousel>
     </div>
   )
 }
