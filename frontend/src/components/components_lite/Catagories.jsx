@@ -6,12 +6,12 @@ import { Button } from '../ui/button'
 const Category = [
   "Frontend Devloper",
   "Backend Devloper",
-  "Full Stack Developer",
+  "Fullstack Developer",
   "Data Scientist",
   "DevOps Engineer",
-  "Machine Learning Engineer",
-  "Artificial Intelligence Engineer",
-  "Cyber Security Engineer",
+  "Machine Learning",
+  "Artificial Intelligence",
+  "Cyber Security",
   "Product Manager",
   "UI/UX Designer",
   "Graphic Designer",
@@ -31,12 +31,12 @@ const Catagories = () => {
           Explore our extensive job market.
         </p>
       </div>
-      <Carousel className="w-full max-w-xl mx-auto my-10" >
+      <Carousel className="w-full max-w-xl gap-4 mx-auto my-10" >
         <CarouselContent>
 
           {
             Category.map((category, index) => {
-              return <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+              return <CarouselItem className="md:basis-1/2 lg:basis-1/3 ">
                 <Button>
                   {category}
                 </Button>
