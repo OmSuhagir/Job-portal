@@ -9,7 +9,7 @@ const Job = () => {
 
         <div className='p-5 rounded-md shadow-xl bg-white border border-gray-200 cursor-pointer hover:shadow-2xl hover:shadow-blue-200 hover:p-3 hover:m-0 transition-all duration-300 ease-in-out '>
             <div className='flex items-center justify-between'>
-                <h1>3 Days Ago</h1>
+                <h1 className='text-sm text-gray-600'>3 Days Ago</h1>
                 <Button variant={'outline'} className='rounded-full' size='icon' >
                     <Bookmark />
                 </Button>
@@ -41,7 +41,16 @@ const Job = () => {
                         </div>
                     </div>
                 </div>
-
+                <div className='flex items-center gap-4 my-2'>
+                    <Button className='rounded-full text-gray-750 hover:text-[#FA4F09]' variant='outline'>
+                        {" "}
+                        Details
+                    </Button>
+                    <Button className='rounded-full text-gray-750 hover:text-[#6B3AC2]' variant='outline'>
+                        {" "}
+                        Save For Later
+                    </Button>
+                </div>
             </div>
         
     )
