@@ -10,6 +10,7 @@ import TermsAndConditions from './components/components_lite/TermsAndConditions.
 import Jobs from './components/components_lite/Jobs'
 import Browse from './components/components_lite/Browse'
 import Profile from './components/components_lite/Profile'
+import Description from './components/components_lite/Description'
 
 const appRouter = createBrowserRouter ([
   {
@@ -47,6 +48,10 @@ const appRouter = createBrowserRouter ([
   {
     path: '/Profile',
     element: <Profile/>
+  },
+  {
+    path: '/description/:id',
+    element: <Description/>
   }
 ]);
 

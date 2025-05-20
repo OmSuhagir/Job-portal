@@ -3,8 +3,13 @@ import { Bookmark } from 'lucide-react'
 import { Button } from '../ui/button'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Badge } from '../ui/badge'
+import { useNavigate } from 'react-router-dom'
 
 const Job = () => {
+
+    const jobId = "omomom"
+    const navigate = useNavigate();
+
     return (
 
         <div className='p-5 rounded-md shadow-xl bg-white border border-gray-200 cursor-pointer hover:shadow-2xl hover:shadow-blue-200 hover:p-3 hover:m-0 transition-all duration-300 ease-in-out '>
@@ -42,7 +47,9 @@ const Job = () => {
                     </div>
                 </div>
                 <div className='flex items-center gap-4 my-2'>
-                    <Button className='rounded-full text-gray-750 hover:text-[#FA4F09]' variant='outline'>
+                    <Button onClick={() => {
+                        navigate(`/description/${jobId}`)
+                    }} className='rounded-full text-gray-750 hover:text-[#FA4F09]' variant='outline'>
                         {" "}
                         Details
                     </Button>

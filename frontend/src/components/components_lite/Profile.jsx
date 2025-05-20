@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './Navbar'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
 import { Contact, Mail, Pen } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import AppliedJobs from './AppliedJobs'
+import EditProfileModel from './EditProfileModel'
 
 const skills = ["React", "Python", "Javascript", "MongoDB", "CSS", "HTML", "NodeJs", "Docker", "Redux"]
+const haveResume = true;
 
 const Profile = () => {
 
-    const haveResume = true;
+    const [open, setOpen] = useState(false);
+
+   
     return (
         <div>
             <Navbar />
@@ -29,7 +33,9 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    <Button className='text-right' variant="outline"><Pen /></Button>
+                    <Button className='text-right' variant="outline" onClick={() => {
+                        setOpen(true);
+                    }}><Pen /></Button>
 
                 </div>
                 <div className=' my-5'>
@@ -76,6 +82,8 @@ const Profile = () => {
                 {/* Application Table */}
                 <AppliedJobs />
             </div>
+            {/* Edit Profile Model */}
+            <EditProfileModel open={open} setOpen={setOpen} />
         </div>
 
     )
